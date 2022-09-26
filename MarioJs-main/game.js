@@ -229,6 +229,7 @@ scene("game", ({ level, score, big, sec,}) => {
 
     //Inf player.pos
     
+    /*
     const eix = add([
         text('X: ' + 0 + 'Y: ' + 0, 10),
         pos(12,50),
@@ -238,7 +239,7 @@ scene("game", ({ level, score, big, sec,}) => {
             value2: 0
         }
     ])
-    
+    */
 
     const levening = add([text('Level: ' +parseInt(level + 1), 10), pos(12,20)])
 
@@ -307,12 +308,14 @@ scene("game", ({ level, score, big, sec,}) => {
 
     //Inf player.pos
     
+    /*
     loop(0.1, () => {
         eix.value1 = player.pos.x;
         eix.value2 = player.pos.y;
         eix.text = 'X: ' + eix.value1 + 'Y: ' + eix.value2;
         eix.color = rgb(0, 0, 1)
     })
+    */
 
     ////////////////////////////////////////////////////////
 
@@ -354,6 +357,7 @@ scene("game", ({ level, score, big, sec,}) => {
 
     keyPress('e', () => {
         if (player.guntime <= 0) {
+
             const fire = add([
                 sprite('fire'),
                 pos(player.pos.x+12*player.dir,player.pos.y-10),
@@ -362,6 +366,7 @@ scene("game", ({ level, score, big, sec,}) => {
             ])
 
             action('fire1',(f) => {
+                pos(fire.pos.x+12*player.dir,fire.pos.y-10)
                 fire.move(300*player.dir,0)
                 loop(1, ()=> {
                 if (player.guntime<0){destroy(f)}
@@ -396,8 +401,10 @@ scene("game", ({ level, score, big, sec,}) => {
 
     action('goomba',(g) => {
 
-        if (player.pos.y>260)
-        {
+        //Perseguição aleatória
+
+        //if (player.pos.y>260)
+        //{
             if (player.pos.x-g.pos.x>0)
             {
                 g.move(30+(player.pos.x-g.pos.x)/10,0);
@@ -410,7 +417,7 @@ scene("game", ({ level, score, big, sec,}) => {
             {
                 g.move(0,0);
             }
-        }
+        /*}
         else if (player.pos.y<=260) 
         {
             g.move(30*g.dir,0);
@@ -424,7 +431,7 @@ scene("game", ({ level, score, big, sec,}) => {
         else
         {
             g.move(0,0);
-        }
+        }*/
     })
 
     //codigo reciclado
@@ -494,8 +501,16 @@ scene("game", ({ level, score, big, sec,}) => {
 
     player.collides('tubo', () => {
         keyPress('down', () => {
-            document.body.style.background = 'linear-gradient(#000000,#1D545F)';
-            go("game", {level: (level + 1) % maps.length,score: scoreLabel.value ,Big:isBig ,sec:30 })
+            if (level>-1 && level<1){
+                go("game", {level: (level + 1) % maps.length,score: scoreLabel.value ,Big:isBig ,sec:30 })
+                document.body.style.background = 'linear-gradient(#000000,#1D545F)';
+            }
+            if (level>0 && level<2){
+                go("game", {level: (level + 1) % maps.length,score: scoreLabel.value ,Big:isBig ,sec:100 })
+            }
+            if (level>1 && level<3){
+                go("game", {level: (level + 1) % maps.length,score: scoreLabel.value ,Big:isBig ,sec:30 })
+            }
         })
     })
 })
