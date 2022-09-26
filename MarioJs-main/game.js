@@ -22,7 +22,7 @@ loadSprite('nuvem', 'kv7jDG5.png')
 loadSprite('bloco-invisivel', '4r7H2xm.png')
 
 //OzrEnBy.png
-loadSprite('mario', 'yraS48q.jpg',{
+loadSprite('mario', '92GgVOb.png',{
     sliceX: 3.9,
     anims: {
         idle: {
@@ -123,41 +123,42 @@ scene("game", ({ level, score, big, sec,}) => {
             '/                                    //',
             '/                                    //',
             '/                                  -+//',
-            '/                                  ()//',
+            '/                        ^  ^      ()//',
             '/     ///%%/////%%////////%%///////()//',
             '/                                  ()//',
-            '/                                  ()//',
+            '/        ^   ^                     ()//',
             '////%%///////%%/////////%%/////    ()//',
             '/                                  ()//',
-            '/                                  ()//',
+            '/                    ^    ^        ()//',
             '/   /////%%/////////%%//////%%/////()//',
             '/                                  ()//',
             '/           ^    ^                 ()//',
             '/////%%///////%%//////%%////////   ()//',
             '/                                  ()//',
-            '/             ^   ^     ^   ^      ()//',
+            '/                       ^   ^      ()//',
             '///////////////////////////////////////',
             '///////////////////////////////////////',
         ],
         [
-            '=      m                             =',
-            '=                                    =',
-            '=                                    =',
-            '=                                m   =',
-            '=                                    =',
-            '=                                    =',
-            '=                                    =',
-            '=                                    =',
-            '=                                    =',
-            '=                                    =',
-            '=                                    =',
-            '=                                    =',
-            '=          {{{{{{{{                  =',
-            '=                                    =',
-            '=   %%%%%            %%%%%           =',
-            '=                                  -+=',
-            '=                                  ()=',
-            '======================================',
+            '1      m                             1',
+            '1                                    1',
+            '1                                    1',
+            '1                                m   1',
+            '1                                    1',
+            '1                                    1',
+            '1                                    1',
+            '1                                    1',
+            '1                                    1',
+            '1                                    1',
+            '1                                    1',
+            '1              ^         q           1',
+            '1            {{{{{{{{                1',
+            '1      ^                             1',
+            '1     %%%%%            %%%%%         1',
+            '1      w           r               -+1',
+            '1                  t         ^  ^  ()1',
+            '=======================================',
+            '=======================================',
         ],
     ]
 
@@ -167,7 +168,7 @@ scene("game", ({ level, score, big, sec,}) => {
         'q': [sprite('bush'),scale(4)],
         'w': [sprite('bush2'),scale(3)],
         'e': [sprite('little_bush'),scale(4)],
-        'r': [sprite('little_bush2'),scale(4)],
+        'r': [sprite('little_bush2'),scale(3)],
         't': [sprite('flower'),scale(1)],
         '=': [sprite('bloco'), solid(),'wall'],
         '$': [sprite('moeda'), 'moeda'],
@@ -258,7 +259,9 @@ scene("game", ({ level, score, big, sec,}) => {
             guntime: 0,
             dir:1,
             dirnuvemx:1,
-            dirnuvemy:1
+            dirnuvemy:1,
+            positionx:0,
+            positionY:0
         }
     ])
 
@@ -358,9 +361,12 @@ scene("game", ({ level, score, big, sec,}) => {
     keyPress('e', () => {
         if (player.guntime <= 0) {
 
+            player.positionx = player.pos.x+12*player.dir;
+            player.positiony = player.pos.y-10;
+
             const fire = add([
                 sprite('fire'),
-                pos(player.pos.x+12*player.dir,player.pos.y-10),
+                pos(player.positionx,player.positiony),
                 scale(2),
                 'fire1',
             ])
@@ -407,16 +413,33 @@ scene("game", ({ level, score, big, sec,}) => {
         //{
             if (player.pos.x-g.pos.x>0)
             {
-                g.move(30+(player.pos.x-g.pos.x)/10,0);
+                if(player.pos.y-30-g.pos.y<0)
+                {
+                    g.move(30+(player.pos.x-g.pos.x)/10,10);
+                    
+                }
+                else
+                {
+                    g.move(30+(player.pos.x-g.pos.x)/10,30);
+                }
             }
             else if (player.pos.x-g.pos.x<0) 
             {
-                g.move(-30+(player.pos.x-g.pos.x)/10,0);
+                if(player.pos.y-30-g.pos.y<0)
+                {
+                    g.move(-30+(player.pos.x-g.pos.x)/10,10);
+                    
+                }
+                else
+                {
+                    g.move(-30+(player.pos.x-g.pos.x)/10,30);
+                }
             }
             else
             {
                 g.move(0,0);
             }
+
         /*}
         else if (player.pos.y<=260) 
         {
@@ -506,10 +529,16 @@ scene("game", ({ level, score, big, sec,}) => {
                 document.body.style.background = 'linear-gradient(#000000,#1D545F)';
             }
             if (level>0 && level<2){
-                go("game", {level: (level + 1) % maps.length,score: scoreLabel.value ,Big:isBig ,sec:100 })
+                go("game", {level: (level + 1) % maps.length,score: scoreLabel.value ,Big:isBig ,sec:60 })
+                document.body.style.background = 'linear-gradient(#000000,#1D545F)';
             }
             if (level>1 && level<3){
                 go("game", {level: (level + 1) % maps.length,score: scoreLabel.value ,Big:isBig ,sec:30 })
+                document.body.style.background = 'linear-gradient(#87CEEB, #E0F6FF)';
+            }
+            if (level>2 && level<4){
+                go("game", {level: 0 % maps.length,score: scoreLabel.value ,Big:isBig ,sec:30 })
+                document.body.style.background = 'linear-gradient(#87CEEB, #E0F6FF)';
             }
         })
     })
@@ -520,7 +549,7 @@ scene("lose", ({score}) => {
     add([ text('score: ' +score, 17), origin('center'), pos(width()/1.5, height()/1.5) ])
     document.body.style.background = 'Black';
     keyPress('space', () => {
-        document.body.style.background = 'linear-gradient(#87CEEB, #E0F6FF)';
+        document.body.style.background = 'linear-gradient(#E0F6FF,#87CEEB)';
         go("game", { level:0, score:0, big:isBig , sec:30 })
     })
 })
