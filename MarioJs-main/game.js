@@ -22,7 +22,7 @@ loadSprite('nuvem', 'kv7jDG5.png')
 loadSprite('bloco-invisivel', '4r7H2xm.png')
 
 //OzrEnBy.png
-loadSprite('mario', 'yraS48q.png',{
+loadSprite('mario', 'yraS48q.jpg',{
     sliceX: 3.9,
     anims: {
         idle: {
@@ -52,6 +52,18 @@ loadSprite('bush','xkvBdrS.png')
 loadSprite('bush2','ayAzBjZ.png')
 loadSprite('little_bush','JxtnIPe.png')
 loadSprite('little_bush2','vmWmPSR.png')
+//J
+loadSprite('right-grass', 'awKf4pD.png')
+loadSprite('left-grass', 'YaYfC2u.png')
+loadSprite('small-ground', 'ugxAWoY.png')
+loadSprite('middle-ground', 'NB2GrJh.png')
+loadSprite('big-ground', '6VAWm7T.png')
+loadSprite('small-large-ground', 'pdjRHsc.png')
+loadSprite('big-large-ground', 'BIXTQGl.png')
+loadSprite('small-grass', 'CsMnRZ4.png')
+loadSprite('medium-grass', 'phnK3TR.pngO')
+loadSprite('large-grass', '6aDfggh.png')
+loadSprite('big-grass', 'G1FHs2x.png')
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -120,10 +132,10 @@ scene("game", ({ level, score, big, sec,}) => {
             '/                                  ()//',
             '/   /////%%/////////%%//////%%/////()//',
             '/                                  ()//',
-            '/                                  ()//',
+            '/           ^    ^                 ()//',
             '/////%%///////%%//////%%////////   ()//',
             '/                                  ()//',
-            '/        ^ ^  ^ ^  ^ ^  ^ ^  ^ ^   ()//',
+            '/             ^   ^     ^   ^      ()//',
             '///////////////////////////////////////',
             '///////////////////////////////////////',
         ],
@@ -177,6 +189,17 @@ scene("game", ({ level, score, big, sec,}) => {
         'm': [sprite('nuvem'), 'flyc',{ dir: -1, timer:0 }, scale(0.5)],
         'n': [sprite('nuvem'), 'flyc', scale(0.5)],
         '1': [sprite('bloco-invisivel'),solid(),'wall'],//Bloco invisível
+        '2': [sprite('right-grass'),solid(),'wall'],
+        '3': [sprite('left-grass'),solid(),'wall'],
+        '4': [sprite('small-ground'),solid(),'wall'],
+        '5': [sprite('middle-ground'),solid(),'wall'],
+        '6': [sprite('big-ground'),solid(),'wall'],
+        '7': [sprite('small-large-ground'),solid(),'wall'],
+        '8': [sprite('big-large-ground'),solid(),'wall'],
+        '9': [sprite('small-grass'),solid(),'wall'],
+        '0': [sprite('medium-grass'),solid(),'wall'],
+        ':': [sprite('large-grass'),solid(),'wall'],
+        '!': [sprite('big-grass'),solid(),'wall'],
     }
 
     ///////////////////////////////////////////////////////////////////////
