@@ -47,6 +47,11 @@ loadSprite('blue-tijolo', '3e5YRQd.png')//tijolo azul
 loadSprite('blue-aco', 'gqVoI2b.png')//aço azul
 loadSprite('blue-goomba', 'SvV4ueD.png')//goomba azul
 loadSprite('fire', 'csvEVOD.png')
+loadSprite('flower','uaUm9sN.png')
+loadSprite('bush','xkvBdrS.png')
+loadSprite('bush2','ayAzBjZ.png')
+loadSprite('little_bush','JxtnIPe.png')
+loadSprite('little_bush2','vmWmPSR.png')
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -70,13 +75,13 @@ scene("game", ({ level, score, big, sec,}) => {
             '1                                     1',
             '1                                     1',
             '1                                     1',
-            '1                  {{{{{              1',
+            '1 q                {{{{{              1',
             '1                                     1',
             '1                                     1',
-            '1         %{%{*                       1',
-            '1                                     1',
+            '1          %{%{*                      1',
+            '1                     e               1',
             '1                                   -+1',
-            '1                ^    ^  ^          ()1',
+            '1   t            ^  t ^  ^   t t    ()1',
             '=======================================',
             '=======================================',
         ],
@@ -101,11 +106,57 @@ scene("game", ({ level, score, big, sec,}) => {
             '///////////////////////////////////////',
             '///////////////////////////////////////',
         ],
+        [
+            '/                                    //',
+            '/                                    //',
+            '/                                    //',
+            '/                                  -+//',
+            '/                                  ()//',
+            '/     ///%%/////%%////////%%///////()//',
+            '/                                  ()//',
+            '/                                  ()//',
+            '////%%///////%%/////////%%/////    ()//',
+            '/                                  ()//',
+            '/                                  ()//',
+            '/   /////%%/////////%%//////%%/////()//',
+            '/                                  ()//',
+            '/                                  ()//',
+            '/////%%///////%%//////%%////////   ()//',
+            '/                                  ()//',
+            '/        ^ ^  ^ ^  ^ ^  ^ ^  ^ ^   ()//',
+            '///////////////////////////////////////',
+            '///////////////////////////////////////',
+        ],
+        [
+            '=      m                             =',
+            '=                                    =',
+            '=                                    =',
+            '=                                m   =',
+            '=                                    =',
+            '=                                    =',
+            '=                                    =',
+            '=                                    =',
+            '=                                    =',
+            '=                                    =',
+            '=                                    =',
+            '=                                    =',
+            '=          {{{{{{{{                  =',
+            '=                                    =',
+            '=   %%%%%            %%%%%           =',
+            '=                                  -+=',
+            '=                                  ()=',
+            '======================================',
+        ],
     ]
 
     const levelCfg = {
         width: 20,
         height: 20,
+        'q': [sprite('bush'),scale(4)],
+        'w': [sprite('bush2'),scale(3)],
+        'e': [sprite('little_bush'),scale(4)],
+        'r': [sprite('little_bush2'),scale(4)],
+        't': [sprite('flower'),scale(1)],
         '=': [sprite('bloco'), solid(),'wall'],
         '$': [sprite('moeda'), 'moeda'],
         '%': [sprite('surpresa'), solid(), 'moeda-surpresa','wall'],
@@ -154,7 +205,7 @@ scene("game", ({ level, score, big, sec,}) => {
     ])
 
     //Inf player.pos
-    /*
+    
     const eix = add([
         text('X: ' + 0 + 'Y: ' + 0, 10),
         pos(12,50),
@@ -164,7 +215,7 @@ scene("game", ({ level, score, big, sec,}) => {
             value2: 0
         }
     ])
-    */
+    
 
     const levening = add([text('Level: ' +parseInt(level + 1), 10), pos(12,20)])
 
@@ -231,14 +282,14 @@ scene("game", ({ level, score, big, sec,}) => {
         player.dirnuvemx = -player.dirnuvemx;
     })
 
-    /*
+    //Inf player.pos
+    
     loop(0.1, () => {
         eix.value1 = player.pos.x;
         eix.value2 = player.pos.y;
         eix.text = 'X: ' + eix.value1 + 'Y: ' + eix.value2;
-        eix.color = rgb(100, 100, 100)
+        eix.color = rgb(0, 0, 1)
     })
-    */
 
     ////////////////////////////////////////////////////////
 
@@ -283,17 +334,18 @@ scene("game", ({ level, score, big, sec,}) => {
             const fire = add([
                 sprite('fire'),
                 pos(player.pos.x+12*player.dir,player.pos.y-10),
+                scale(2),
                 'fire1',
             ])
 
             action('fire1',(f) => {
                 fire.move(300*player.dir,0)
                 loop(1, ()=> {
-                if (player.guntime<4){destroy(f)}
+                if (player.guntime<0){destroy(f)}
                 })
             })
 
-            player.guntime = 5;
+            player.guntime = 2.5;
         }
     })
 
