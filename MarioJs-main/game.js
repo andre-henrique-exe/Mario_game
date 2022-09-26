@@ -214,9 +214,9 @@ scene("game", ({ level, score, big, sec,}) => {
     loop(1, () => {
         timing.value--
         timing.text = 'Timer: ' + timing.value
-        timing.color = rgb(100, 100, 100)
-        scoreLabel.color = rgb(100, 100, 100)
-        levening.color = rgb(100, 100, 100)
+        timing.color = rgb(1, 0, 0)
+        scoreLabel.color = rgb(0, 0, 1)
+        levening.color = rgb(1, 1, 0)
         player.guntime--;
         if(timing.value<1){
             go("lose", ({score: scoreLabel.value}))
